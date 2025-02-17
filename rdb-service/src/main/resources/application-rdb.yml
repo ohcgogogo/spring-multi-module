@@ -1,0 +1,64 @@
+spring:
+  config:
+    activate:
+      on-profile: default
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        session_factory:
+          statement_inspector: com.example.rdbservice.config.jpa.SqlCommentStatementInspector
+---
+spring:
+  config:
+    activate:
+      on-profile: develop
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://218.146.5.48:30000/irms?verifyServerCertificate=true&useSSL=true&requireSSL=true&trustCertificateKeyStoreUrl=file:/Users/nhncommerce/home/IdeaProjects/demo/src/main/resources/db.mysql/truststore.jks&trustCertificateKeyStorePassword=irms-key13579&clientCertificateKeyStoreUrl=file:/Users/nhncommerce/home/IdeaProjects/demo/src/main/resources/db.mysql/keystore.jks&clientCertificateKeyStorePassword=irms-key13579
+      username: irms
+      password: irms-admin!1vv1!
+      connection-timeout: 5000
+      idle-timeout: 1100000
+      max-lifetime: 117000
+      maximum-pool-size: 100
+      minimum-idle: 10
+logging:
+  level:
+    org:
+      hibernate:
+#        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.91:56033/CFO_2?verifyServerCertificate=true&useSSL=true&requireSSL=true&trustCertificateKeyStoreUrl=file:/truststore.jks&trustCertificateKeyStorePassword=&clientCertificateKeyStoreUrl=file:/keystore.jks&clientCertificateKeyStorePassword=
+    username:
+    password:
+    hikari:
+      connection-timeout: 5000
+      idle-timeout: 110000
+      max-lifetime: 117000
+      maximum-pool-size: 100
+      minimum-idle: 10
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: error
+        type: warn
+
+
+
+

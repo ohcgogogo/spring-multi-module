@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: msa-eureka-server
+server:
+  port: 8761
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: false # 자기자신을 서비스로 등록시키지 않음
+    fetchRegistry: false # 서비스 목록 로컬에 캐시 하지 않음

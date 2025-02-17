@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: develop
+  data:
+    mongodb:
+#      host: 218.146.5.48
+#      port: 32000
+#      username : testuser
+#      password : testuser
+#      authentication-database: admin
+      url: mongodb://testuser:testuser@218.146.5.48:32000/testDB?authSource=admin
+      database: testDB

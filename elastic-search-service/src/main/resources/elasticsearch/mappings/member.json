@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "id": {
+      "type": "long"
+    },
+    "email": {
+      "type": "text",
+      "analyzer": "korean"
+    }
+  }
+}

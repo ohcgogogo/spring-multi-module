@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: develop
+  data:
+    redis:
+      pool:
+        max-active: 8
+        max-idle : 8
+        max-wait : -1
+        min-idle : 0
+      host: 218.146.5.48
+      port: 31000
+      username: default
+      password: gksrnrRNDWkd!
+#      repositories:
+#        enabled: false # spring batch 때문에 disable 시켰는데, 나중에 spring batch에서 multi datasource 설정을 해주어야함.

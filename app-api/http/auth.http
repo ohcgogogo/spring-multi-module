@@ -1,0 +1,18 @@
+### 1. 회원가입
+POST {{api-gateway}}/api/auth/auth/signup
+Authorization: Bearer
+Content-Type: application/json
+
+{
+  "email":"ben-75@kr.accommate.com",
+  "password":"P!1assword12"
+}
+
+### 1. 회원가입 (email 입력 오류)
+POST {{api-gateway}}/api/auth/auth/signup
+Authorization: Bearer
+Content-Type: application/json
+
+{
+  "password":"password"
+}

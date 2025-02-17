@@ -1,0 +1,78 @@
+plugins {
+    id 'com.epages.restdocs-api-spec'
+//    id 'org.asciidoctor.jvm.convert'
+}
+//configurations {
+//    asciidoctorExt
+//}
+ext {
+    set('springCloudVersion', "2022.0.4")
+//    set('snippetsDir', file("build/generated-snippets"))
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+
+//    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.6.RELEASE'
+//    testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient:2.0.6.RELEASE'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.17.1'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+//    testImplementation 'com.epages:restdocs-api-spec-openapi3-generator:0.17.1'
+
+    implementation project(':business-service')
+    implementation project(':kafka-service')
+    implementation project(':rdb-service')
+    implementation project(':redis-service')
+    implementation project(':elastic-search-service')
+    implementation project(':core')
+    implementation project(':independent')
+}
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+openapi3 {
+    server = 'http://localhost:9100'
+    title = 'Sample API'
+    description = 'Sample API description'
+    version = '0.1.0'
+    format = 'yaml'
+//    outputDirectory = "."
+//    outputFileNamePrefix = "swagger"
+//    tagDescriptionsPropertiesFile = 'src/test/resources/tag-descriptions.yaml'
+}
+//test {
+//    ouputs.dir snippetsDir
+//}
+//asciidoctor {
+//    inputs.dir snippetsDir
+//    configurations 'asciidoctorExt'
+//    dependsOn("test")
+//}
+tasks.register("copyOasToSwagger", Copy) {
+    dependsOn("openapi3")
+    delete "src/main/resources/static/docs/openapi3.yaml" // 기존 OAS 파일
+    from "$buildDir/api-spec/openapi3.yaml" // 복제할 OAS 파일 지정
+    into "src/main/resources/static/docs/." // 타겟 디렉터리로 파일 복제
+}
+//tasks.named('test') {
+//    outputs.dir snippetsDir
+//    useJUnitPlatform()
+//}
+//tasks.named('asciidoctor') {
+//    inputs.dir snippetsDir
+//    dependsOn test
+//}

@@ -1,0 +1,11 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+//    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.15.0'
+//    implementation 'org.elasticsearch.client:elasticsearch-rest-client:7.15.0'
+//    implementation 'org.elasticsearch:elasticsearch:7.15.0'
+    implementation project(':core')
+    implementation project(':independent')
+    testImplementation 'junit:junit:4.13.2'
+}
+
+

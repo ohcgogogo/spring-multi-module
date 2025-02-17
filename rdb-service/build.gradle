@@ -1,0 +1,10 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.mysql:mysql-connector-j:8.0.33'
+//    implementation 'org.springframework.data:spring-data-envers'
+
+
+    implementation project(':core')
+    implementation project(':independent')
+}

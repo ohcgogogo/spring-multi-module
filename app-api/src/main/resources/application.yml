@@ -1,0 +1,51 @@
+spring:
+  profiles:
+    include:
+      - business
+      - rdb
+      - kafka
+      - redis
+      - elastic-search
+      - rabbitmq
+      - mongodb
+---
+spring:
+  config:
+    activate:
+      on-profile: default
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB
+  jackson:
+    default-property-inclusion: non_null
+  lifecycle:
+    timeout-per-shutdown-phase: 60s
+  application:
+    name: msa-auth-service
+  eureka:
+    instance:
+      prefer-ip-address: true
+    client:
+      register-with-eureka: true # 유레카 서비스에 (자신을) 등록 여부
+      fetch-registry: true
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+#  output:
+#    ansi:
+#      enabled: detect # If your terminal supports ANSI, the color output will be used to aid readability.
+server:
+  port: 9100
+  shutdown: graceful
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr([%method:%line]){green} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
+
+  level:
+    #root: info
+    org:
+      springframework:
+        web: debug
+      hibernate: info
+jwt:
+  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK

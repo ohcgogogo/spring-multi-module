@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: develop
+  kafka:
+    consumer:
+      bootstrap-servers: 218.146.5.48:30101,218.146.5.48:30102
+      group-id: JavaDemoGroup
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: 218.146.5.48:30101,218.146.5.48:30102
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 0

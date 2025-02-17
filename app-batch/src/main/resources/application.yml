@@ -1,0 +1,82 @@
+spring:
+  profiles:
+    include:
+      - business
+      - rdb
+      - kafka
+      - redis
+      - elastic-search
+      - rabbitmq
+      - mongodb
+---
+spring:
+  config:
+    activate:
+      on-profile: default
+#  main :
+#    web-application-type: none
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: never
+  lifecycle:
+    timeout-per-shutdown-phase: 60s
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: never
+    overwrite-existing-jobs: true
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: QuartzScheduler
+            instanceId: AUTO
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: '10'
+            threadPriority: '5'
+          jobStore:
+            #      class: org.quartz.simpl.RAMJobStore
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX # JobStoreTX type starts and manages its own transactions.
+            #      class: org.quartz.impl.jdbcjobstore.JobStoreCMT # JobStoreCMT type requires an application transaction to store data,
+            #      class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+            misfireThreshold: '60000'
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            useProperties: false # 이 값이 true이면 DB에 JobDataMaps에 저장되는 값이 binary가 아닌 string 값으로 저장된다
+            dataSource: quartzDataSource
+            tablePrefix: QRTZ_
+            isClustered: true
+            clusterCheckinInterval: '60000'
+          dataSource:
+            quartzDataSource:
+              provider: hikaricp
+              driver: com.mysql.cj.jdbc.Driver
+              URL: jdbc:mysql://218.146.5.48:30000/irms?verifyServerCertificate=true&useSSL=true&requireSSL=true&trustCertificateKeyStoreUrl=file:/Users/nhncommerce/home/IdeaProjects/demo/src/main/resources/db.mysql/truststore.jks&trustCertificateKeyStorePassword=irms-key13579&clientCertificateKeyStoreUrl=file:/Users/nhncommerce/home/IdeaProjects/demo/src/main/resources/db.mysql/keystore.jks&clientCertificateKeyStorePassword=irms-key13579
+              user: irms
+              password: irms-admin!1vv1!
+              maxConnections: '5'
+              validationQuery: select 1
+
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB
+server:
+  port: 8081
+  shutdown: graceful
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        scheduling:
+          quartz: debug
+      quartz: debug
+
+
+
+
+
+

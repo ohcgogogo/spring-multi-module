@@ -1,0 +1,74 @@
+{
+  "mappings": {
+    "properties": {
+      "_class": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "id": {
+        "type": "long"
+      },
+      "email": {
+        "type": "text",
+        "fields": {
+          "english": {
+            "type": "text",
+            "analyzer": "english"
+          },
+          "nori": {
+            "type": "text",
+            "analyzer": "broccoli_nori_none"
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+    "index": {
+      "routing": {
+        "allocation": {
+          "include": {
+            "_tier_preference": "data_content"
+          }
+        }
+      },
+      "number_of_shards": "1",
+      "analysis": {
+        "tokenizer": {
+          "nori_none": {
+            "type": "nori_tokenizer",
+            "decompound_mode": "none"
+          },
+          "nori_discard": {
+            "type": "nori_tokenizer",
+            "decompound_mode": "discard"
+          },
+          "nori_mixed": {
+            "type": "nori_tokenizer",
+            "decompound_mode": "mixed"
+          }
+        },
+        "analyzer": {
+          "broccoli_nori_discard": {
+            "type": "custom",
+            "tokenizer": "nori_discard"
+          },
+          "broccoli_nori_mixed": {
+            "type": "custom",
+            "tokenizer": "nori_mixed"
+          },
+          "broccoli_nori_none": {
+            "type": "custom",
+            "tokenizer": "nori_none"
+          }
+        }
+      },
+      "number_of_replicas": "1"
+    }
+  }
+}

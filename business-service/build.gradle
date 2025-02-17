@@ -1,0 +1,14 @@
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	implementation project(':kafka-service')
+	implementation project(':rdb-service')
+	implementation project(':redis-service')
+	implementation project(':elastic-search-service')
+	implementation project(':rabbitmq-service')
+	implementation project(':mongodb-service')
+	implementation project(':core')
+	implementation project(':independent')
+}

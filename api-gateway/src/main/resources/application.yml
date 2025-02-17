@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: msa-api-gateway
+  eureka:
+    instance:
+      prefer-ip-address: true
+    client:
+      register-with-eureka: true # 유레카 서비스에 (자신을) 등록 여부
+      fetch-registry: true
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+  cloud:
+    gateway:
+      routes:
+        - id : msa-user-service
+          uri: http://localhost:8000
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - RewritePath=/api/user/(?<path>.*),/$\{path}
+            - AuthorizationHeaderFilter=ROLE_USER
+
+        - id : msa-review-service
+          uri: http://localhost:8010
+          predicates:
+            - Path=/api/review/**
+          filters:
+            - RewritePath=/api/review/(?<path>.*),/$\{path}
+            - AuthorizationHeaderFilter=ROLE_USER
+
+        - id : msa-auth-service
+          uri: http://localhost:9100
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/auth/(?<path>.*),/$\{path}
+
+#        로드 밸런스를 사용할수 있지만, 라우드 로빈 방식의 로브밸런싱으로 websocket 로드밸런싱에는 적합하지 않음. socket 커넥션을 확인해서 connect 을 맺을 서버를 지정해줘야함.
+#        - id: msa-message-service # STOMP over WebSocket 이라면 기본적으로 스프링은 STOMP 프로토콜 레벨의 authorization 헤더를 무시한다. 이 유저가 HTTP 전송레벨에서 이미 인증되었을 것이라고 가정하기 때문에 gateway를 통해서 인증처리가 어렵다고함.
+#          uri: http://localhost:9010
+#          predicates:
+#            - Path=/api/message/**
+#          filters:
+#            - RewritePath=/api/message/(?<path>.*),/$\{path}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "gateway"
+  endpoint:
+    gateway:
+      enabled: true  # default: true
+server:
+  port: 8090
+logging:
+  level:
+    root: info
+jwt:
+  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK
+

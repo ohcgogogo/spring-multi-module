@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: develop
+  rabbitmq:
+    host: 218.146.5.48
+    port: 31569
+    username: rabbit
+    password: rabbit
+    virtual-host: vhost-01
+#rabbitmq:
+#  queue: queue-01
+#  exchange: exchange-01
+#  routing: routing_key

@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    include:
+      - business
+      - rdb
+      - kafka
+      - redis
+      - elastic-search
+      - rabbitmq
+      - mongodb
+---
+spring:
+  config:
+    activate:
+      on-profile: default
+#  main :
+#    web-application-type: none
+  lifecycle:
+    timeout-per-shutdown-phase: 60s
+  server:
+    shutdown: graceful
+logging:
+  level:
+    root: info
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr([%method:%line]){green} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"

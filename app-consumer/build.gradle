@@ -1,0 +1,17 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.1'
+    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+
+    implementation project(':business-service')
+    implementation project(':kafka-service')
+    implementation project(':rdb-service')
+    implementation project(':redis-service')
+    implementation project(':elastic-search-service')
+    implementation project(':rabbitmq-service')
+    implementation project(':core')
+    implementation project(':independent')
+}
