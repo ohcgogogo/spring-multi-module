@@ -19,8 +19,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long>, Jpa
     public Boolean existsByEmail(String email);
     public List<MemberEntity> findByIdIn(List<Long> ids);
 }
-
-
+/**
     private Long seq;
     private Integer userGroupSeq;
     private String id;
@@ -52,3 +51,4 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long>, Jpa
     private Long deleteUserSeq;
     @Column(name="delete_time")
     private ZonedDateTime deleteTime;
+*/

@@ -4,6 +4,6 @@ import com.example.mongodbservice.entity.TestDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
-public interface TestDocumentRepository extends MongoRepository<TestDocument, String> {
+public interface TestDocumentRepository extends MongoRepository<TestDocument, Long> {
      Optional<TestDocument> findTestDocumentByEmail(String email);
 }
